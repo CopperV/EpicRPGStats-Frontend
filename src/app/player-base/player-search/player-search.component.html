@@ -1,0 +1,16 @@
+
+<input class="navbar-search"
+  type="text" 
+  matInput 
+  [matAutocomplete]="auto"
+  placeholder="Szukaj gracza..."
+  [(ngModel)]="searchName" 
+  (keyup)="trySetupSearchSubscription()">
+<mat-autocomplete #auto="matAutocomplete" hideSingleSelectionIndicator="true">
+  <!-- @for (basePlayer of searchOptions; track basePlayer) {
+    <a (click)="openWindow(basePlayer.id)"><mat-option [value]="basePlayer.nick" class="search-option">{{ basePlayer.nick }}</mat-option></a>
+  } -->
+    <a *ngFor="let basePlayer of searchOptions" (click)="openWindow(basePlayer.id)">
+      <mat-option [value]="basePlayer.nick" class="search-option">{{ basePlayer.nick }}</mat-option>
+    </a>
+</mat-autocomplete>

@@ -1,0 +1,47 @@
+.navbar-search {
+    background-color: #333333;
+    display: inline;
+
+    margin-top: 8px;
+    margin-right: 15px;
+    padding-left: 15px;
+    float: right;
+    vertical-align: middle;
+
+    height: 64px;
+    width: 256px;
+
+    font-size: 28px;
+    font-weight: bold;
+    color: #656565;
+
+    border-style: none;
+    border-radius: 20px;
+
+    transition: 0.1s;
+}
+
+.navbar-search:focus {
+    outline: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+::ng-deep .navbar-search::placeholder {
+    color: #656565;
+}
+
+::ng-deep .mat-autocomplete-panel {
+    border-radius: 10px;
+}
+
+mat-option.search-option {
+    background-color: #333333;
+    color: #656565;
+    font-weight: bold;
+
+    height: 20px;
+    font-size: 18px;
+    margin: 0;
+    padding-left: 12px;
+}

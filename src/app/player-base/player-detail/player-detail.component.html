@@ -1,0 +1,14 @@
+<div *ngIf="player;then playerTemplate else loadingTemplate"></div>
+
+<ng-template #playerTemplate>
+    <h2>INFO {{ player.nick }}</h2>
+    <p>Poziom: {{ player.stats.level }}</p>
+    <p>Doświadczenie: {{ player.stats.exp }}/{{ player.stats.nextLevel }}</p>
+    <img id="avatar" [src]="player.bodyUrl">
+</ng-template>
+
+<ng-template #loadingTemplate>
+    <img id="loading" src="assets/loading.gif" />
+</ng-template>
+
+<!-- <button mat-button (click)="closeWindow()">ZAMKNIJ</button> -->
