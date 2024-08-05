@@ -30,12 +30,10 @@
 
 <!-- TABLE COMPONENT -->
 <div>
-  <mat-form-field id="search">
-    <mat-label>Wyników na stronie</mat-label>
-    <mat-select [formControl]="sizeControl" (selectionChange)="onPageChange(page, $event.value)" name="sizeOption">
-      @for (sizeOption of possibleSizes; track sizeOption) {
-        <mat-option [value]="sizeOption">{{ sizeOption }}</mat-option>
-      }
+  <mat-form-field>
+    <mat-label id="search">Wyników na stronie</mat-label>
+    <mat-select id="search2" [formControl]="sizeControl" (selectionChange)="onPageChange(page, $event.value)" name="sizeOption" hideSingleSelectionIndicator="true">
+      <mat-option class="size-option" *ngFor="let sizeOption of possibleSizes" [value]="sizeOption">{{ sizeOption }}</mat-option>
     </mat-select>
   </mat-form-field>
   <div id="stat-table">
@@ -92,4 +90,8 @@
       class="clickable-row"></tr>
     </table>  
   </div>
+</div>
+
+<div id="footer" style="clear: both; margin-bottom: 0; height: 64px;">
+
 </div>

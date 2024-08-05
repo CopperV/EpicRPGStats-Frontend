@@ -3,6 +3,7 @@
 html, body { height: 100%; }
 body { 
     margin: 0; 
+    padding: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 
     background-image: url("/assets/background.png");
@@ -22,5 +23,47 @@ body::before {
     background: rgba(0, 0, 0, 0.5);
     z-index: -1;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+//SIZE
+div.mat-mdc-select-panel{
+    padding: 0;
+    border-radius: 0px;
+}
+div.mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: #333333;
+    height: 60px;
+}
+
+//SEARCH
+div#cdk-overlay-0{
+    height: auto;
+    max-height: auto;
+}
+
+div#mat-autocomplete-0{
+    padding: 0;
+    height: 100%;
+    max-height: none;
+    overflow-y: hidden;
+}
+
+div#mat-autocomplete-0{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+div#mat-autocomplete-0:last-child{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+//SCROLLBAR
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: rgb(36, 36, 36);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(240deg,rgb(20, 220, 235), rgb(193, 211, 197));
+    border-radius: 20px;
+}

@@ -23,6 +23,9 @@
 
 .navbar-search:focus {
     outline: none;
+}
+
+.navbar-search.has-options:focus {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
@@ -31,17 +34,33 @@
     color: #656565;
 }
 
-::ng-deep .mat-autocomplete-panel {
-    border-radius: 10px;
-}
-
 mat-option.search-option {
     background-color: #333333;
     color: #656565;
     font-weight: bold;
+    font-style: italic;
 
-    height: 20px;
+    min-height: 22px;
+    height: 22px;
     font-size: 18px;
     margin: 0;
+    padding-top: 4px;
     padding-left: 12px;
+
+    transition: 0.1s;
+}
+mat-option.search-option:hover {
+    background-color: #656565;
+    color: rgb(60, 236, 75);
+    font-weight: bold;
+    font-style: italic;
+
+    min-height: 24px;
+    height: 24px;
+    font-size: 20px;
+    margin: 0;
+    padding-top: 4px;
+    padding-left: 12px;
+
+    transition: 0.2s;
 }
