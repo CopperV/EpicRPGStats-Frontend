@@ -13,6 +13,7 @@ import { PlayerImageService } from '../_services/images/player-image.service';
 import { PlayerSearchComponent } from './player-search/player-search.component';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { BaseChartDirective } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { CommonModule } from '@angular/common';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    BaseChartDirective
   ],
   declarations: [
     PlayerBaseComponent,

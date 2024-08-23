@@ -1,13 +1,23 @@
 <div id="pagination">
-  <div>
-    <ng-container *ngIf="getPageAmount() > 1;then multiplePagesAmount else onePageInfo"></ng-container>
+  <div id="container">
+    <div id="page">
+      <ng-container *ngIf="getPageAmount() > 1;then multiplePagesAmount else onePageInfo"></ng-container>
+    </div>
+    <!-- <div id="size">
+      <mat-form-field id="select-form">
+        <mat-label id="search">Wyników na stronie</mat-label>
+        <mat-select id="search2" [formControl]="sizeControl" (selectionChange)="onPageChange(page, $event.value)" panelWidth="auto" name="sizeOption" hideSingleSelectionIndicator="true" color="accent">
+          <mat-option class="size-option" *ngFor="let sizeOption of possibleSizes" [value]="sizeOption">{{ sizeOption }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
   </div>
- </div>
+</div>
 
 <ng-template #onePageInfo>
   <img src="assets/gray_arrow.png" style="transform: scaleX(-1)">
   <span id="page-info">1</span>
-  <img src="assets/gray_arrow.png">
+  <img src="assets/gray_arrow.png" style="float: right;">
 </ng-template>
 <ng-template #multiplePagesAmount>
   <span *ngIf="page > 0; then leftGreen else leftGray"></span>
@@ -30,23 +40,18 @@
 
 <!-- TABLE COMPONENT -->
 <div>
-  <mat-form-field>
-    <mat-label id="search">Wyników na stronie</mat-label>
-    <mat-select id="search2" [formControl]="sizeControl" (selectionChange)="onPageChange(page, $event.value)" name="sizeOption" hideSingleSelectionIndicator="true">
-      <mat-option class="size-option" *ngFor="let sizeOption of possibleSizes" [value]="sizeOption">{{ sizeOption }}</mat-option>
-    </mat-select>
-  </mat-form-field>
   <div id="stat-table">
     <table mat-table [dataSource]="players" class="mat-elevation-z8">
       <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> Pos. </th>
-        <td mat-cell *matCellDef="let player">{{ player.position }}  <img [src]="player.headUrl"></td>
+        <th mat-header-cell *matHeaderCellDef class="stat-table-header"> Pos. </th>
+        <td mat-cell *matCellDef="let player" id="pos" [ngStyle]="{'color': getPositionColor(player.position)}" style="display: flex; justify-content: left; align-items: left;">
+          <div style="flex: 1;">{{ player.position }}</div>
+          <div style="flex: 2;"><img [src]="player.headUrl" style="padding-left: 5px;"></div>
+        </td>
       </ng-container>
       <ng-container matColumnDef="nick">
         <th mat-header-cell *matHeaderCellDef> Nick </th>
-        <td mat-cell *matCellDef="let player">
-          <a (click)="openWindow(player.id)">{{ player.nick }}</a>
-        </td>
+        <td mat-cell *matCellDef="let player" style="letter-spacing: 0.01em !important;">{{ player.nick }}</td>
       </ng-container>
       <ng-container matColumnDef="level">
         <th mat-header-cell *matHeaderCellDef> Poziom </th>
@@ -65,30 +70,29 @@
         <td mat-cell *matCellDef="let player">
           <p></p>
           @switch (player.stats.klasa) {
-            @case ("§cWojownik") {
-              <p style="color: #f32d2d;">Wojownik</p>
-            }
-            @case ("§2Mysliwy") {
-              <p style="color: #07a321;">Mysliwy</p>
-            }
-            @case ("§5Mag") {
-              <p style="color: #c9248a;">Mag</p>
-            }
-            @case ("§aobywatel") {
-              <p style="color: #bef033;">Obywatel</p>
-            }
-            @default {
-              {{ player.stats.klasa }}
-            }
+          @case ("§cWojownik") {
+          <p style="color: #f32d2d;">Wojownik</p>
+          }
+          @case ("§2Mysliwy") {
+          <p style="color: #07a321;">Myśliwy</p>
+          }
+          @case ("§5Mag") {
+          <p style="color: #c9248a;">Mag</p>
+          }
+          @case ("§aobywatel") {
+          <p style="color: #bef033;">Obywatel</p>
+          }
+          @default {
+          {{ player.stats.klasa }}
+          }
           }
         </td>
       </ng-container>
-    
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let player; columns: displayedColumns"
-      (click)="openWindow(player.id)"
-      class="clickable-row"></tr>
-    </table>  
+      <tr mat-row *matRowDef="let player; columns: displayedColumns" (click)="openWindow(player.id)"
+        class="clickable-row" [ngStyle]="{'background-color': getBackgroundColor(player.position)}"></tr>
+    </table>
   </div>
 </div>
 

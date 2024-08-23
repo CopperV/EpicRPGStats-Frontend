@@ -7,6 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PlayerBaseModule } from './player-base/player-base.module';
 import { CommonBaseModule } from './common-base/common-base.module';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CommonBaseModule } from './common-base/common-base.module';
     CommonBaseModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideCharts(withDefaultRegisterables())
   ],
   bootstrap: [AppComponent]
 })

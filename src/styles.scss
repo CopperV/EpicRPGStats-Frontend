@@ -1,4 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "KingPetrock";
+    src: url('/fonts/Kingthings Petrock.ttf') format('truetype');
+}
+@font-face {
+    font-family: "KingPetrockLight";
+    src: url('/fonts/Kingthings Petrock light.ttf') format('truetype');
+}
+@font-face {
+    font-family: "BakemonoLight";
+    src: url('/fonts/Bakemono-Stereo-Light-trial.ttf') format('truetype');
+}
+@font-face {
+    font-family: "BakemonoRegular";
+    src: url('/fonts/Bakemono-Stereo-Regular-trial.ttf') format('truetype');
+}
 
 html, body { height: 100%; }
 body { 
@@ -30,8 +46,18 @@ div.mat-mdc-select-panel{
     border-radius: 0px;
 }
 div.mdc-text-field--filled:not(.mdc-text-field--disabled){
-    background-color: #333333;
+    background-color: rgb(73, 73, 73);
     height: 60px;
+    padding: 0px 5px;
+    border-radius: 0px;
+    text-align: right;
+}
+div.mat-mdc-form-field-bottom-align {
+    height: 0;
+}
+div.mat-mdc-text-field-wrapper {
+    width: 100%;
+    z-index: 0;
 }
 
 //SEARCH

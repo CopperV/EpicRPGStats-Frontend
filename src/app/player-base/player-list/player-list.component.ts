@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-player-list',
   templateUrl: './player-list.component.html',
-  styleUrls: ['./player-list.component.css']
+  styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent implements OnInit {
 
@@ -73,8 +73,8 @@ export class PlayerListComponent implements OnInit {
   
   openWindow(_id: number){
     this.dialogRef.open(PlayerDetailComponent, {
-      height: '80%',
-      width: '80%',
+      height: '90vh',
+      width: '90vw',
       maxWidth: "none",
       maxHeight: "none",
       data: {id: _id}
@@ -85,6 +85,26 @@ export class PlayerListComponent implements OnInit {
     this.page = newPage;
     this.size = newSize
     this.fetchPlayers$.next({ page: this.page, size: this.size });
+  }
+
+  getPositionColor(position: number): string {
+    switch (position) {
+      case 1:
+        return '#DBAC34';
+      case 2:
+        return '#A5A9B4';
+      case 3:
+        return '#C4A484';
+      default:
+        return '#656565';
+    }
+  }
+
+  getBackgroundColor(position: number): string {
+    if(position % 2 === 0)
+      return "#101010";
+    else
+      return "#202020";
   }
 
 }

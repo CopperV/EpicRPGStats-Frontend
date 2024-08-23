@@ -1,10 +1,214 @@
 <div *ngIf="player;then playerTemplate else loadingTemplate"></div>
 
 <ng-template #playerTemplate>
-    <h2>INFO {{ player.nick }}</h2>
-    <p>Poziom: {{ player.stats.level }}</p>
-    <p>Doświadczenie: {{ player.stats.exp }}/{{ player.stats.nextLevel }}</p>
-    <img id="avatar" [src]="player.bodyUrl">
+    <div id="container">
+        <div id="left-side">
+            <div id="column1">
+                <div id="avatar-container"><img [src]="player.bodyUrl"></div>
+                <div id="info-container">
+                    <h2>INFO</h2>
+                    <div id="info">
+                        <span>Nick ➡ {{ player.nick }}</span>
+                        <span style="display: inline;">Klasa ➡ 
+                            @switch (player.stats.klasa) {
+                              @case ("§cWojownik") {
+                                <p style="color: #f32d2d; display: inline;">Wojownik</p>
+                              }
+                              @case ("§2Mysliwy") {
+                                <p style="color: #07a321; display: inline;">Myśliwy</p>
+                              }
+                              @case ("§5Mag") {
+                                <p style="color: #c9248a; display: inline;">Mag</p>
+                              }
+                              @case ("§aobywatel") {
+                                <p style="color: #bef033; display: inline;">Obywatel</p>
+                              }
+                              @default {
+                                {{ player.stats.klasa }}
+                              }
+                            }</span>
+                        <span>Punkty nauki ➡ {{ player.stats.pn }}</span>
+                        <span>Poziom ➡ {{ player.stats.level }}</span>
+                        <div class="stat">
+                            <div class="range-exp"
+                                style="--amount: {{ player.stats.exp }}; --max: {{ player.stats.nextLevel}}; --color: #BFFF00">
+                                <div class="range-exp__label">DOŚWIADCZENIE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="rzemiosla-container">
+                    <h2>RZEMIOSŁA</h2>
+                    <div id="rzemiosla">
+                        {{ getRzemioslaAsString(player) }}
+                    </div>
+                </div>
+            </div>
+            <div id="column2">
+                <div id="vaults">
+                    <h2>WALUTY</h2>
+                    <div class="vault-container">
+                        <div class="vault">
+                            <span style="color: #4ce7e7">STYGIA</span> ➡ {{ player.stats.stygia }}
+                        </div>
+                        <div class="vault">
+                            <span style="color: #6287ec">BRYŁKI RUDY</span> ➡ {{ player.stats.brylki }}
+                        </div>
+                    </div>
+                    <div class="vault-container">
+                        <div class="vault">
+                            <span style="color: #ee6543">SMOCZE MONETY</span> ➡ {{ player.stats.coins }}
+                        </div>
+                    </div>
+                </div>
+                <div id="reputations">
+                    <h2 style="margin-bottom: 1.2vh;">REPUTACJA</h2>
+                    <div class="reputation">
+                        <div class="range"
+                            style="--amount: {{ player.rep.archolosAmount }}; --max: 20000; --color: #FADA5E">
+                            <div class="range__label"><span style="color: #e6b927">EKSPEDYCJA ARCHOLOS</span> - {{ getReputationLevelName(player.rep.archolosLevel) }}</div>
+                        </div>
+                    </div>
+                    <div class="reputation">
+                        <div class="range"
+                            style="--amount: {{ player.rep.witcherAmount }}; --max: 20000; --color: #FA8072">
+                            <div class="range__label"><span style="color: #f05c5c">CECH NIEDŹWIEDZIA</span> - {{ getReputationLevelName(player.rep.witcherLevel) }}</div>
+                        </div>
+                    </div>
+                    <div class="reputation">
+                        <div class="range"
+                            style="--amount: {{ player.rep.klanAmount }}; --max: 20000; --color: #4169E1">
+                            <div class="range__label"><span style="color: #6b7ff0">KLAN MŁOTA</span> - {{ getReputationLevelName(player.rep.klanLevel) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="skills-container">
+                    <h2>UMIEJĘTNOŚCI</h2>
+                    <p id="skills">{{ getSkillsAsString(player) }}</p>
+                </div>
+            </div>
+        </div>
+        <div id="right-side">
+            <div id="stat-container">
+                <h2 style="margin-bottom: 1.2vh;">STATYSTYKI</h2>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.info.hp }}; --max: {{ (player.stats.level - 1) * 6 + 100}}; --color: #AA0303">
+                        <div class="range__label">HP</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.sila }}; --max: {{ player.stats.level * 5 + 3}}; --color: #FF474C">
+                        <div class="range__label">SIŁA</div>
+                    </div>
+                    <div class="range"
+                        style="--amount: {{ player.stats.wytrzymalosc }}; --max: {{ player.stats.level * 5 + 3}}; --color: #553927">
+                        <div class="range__label">WYTRZYMAŁOŚĆ</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.zrecznosc }}; --max: {{ player.stats.level * 5 + 3}}; --color: #D5B56E">
+                        <div class="range__label">ZRĘCZNOŚĆ</div>
+                    </div>
+                    <div class="range"
+                        style="--amount: {{ player.stats.zdolnosci }}; --max: {{ player.stats.level * 5 + 3}}; --color: #014421">
+                        <div class="range__label">ZDOLNOŚCI MYŚLIWSKIE</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.inteligencja }}; --max: {{ player.stats.level * 5 + 3}}; --color: #8A2Be2">
+                        <div class="range__label">INTELIGENCJA</div>
+                    </div>
+                    <div class="range"
+                        style="--amount: {{ player.stats.mana }}; --max: {{ player.stats.level * 10 + 7}}; --color: #52AAFB">
+                        <div class="range__label">MANA</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.walka }}; --max: {{ player.stats.level * 2}}; --color: #FFEA00">
+                        <div class="range__label">WALKA</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.krag }}; --max: 8; --color: #4848E4">
+                        <div class="range__label">KRĄG</div>
+                    </div>
+                </div>
+                <!-- <div style="display: block; float: right; height: 80%;">
+                    <canvas baseChart
+                        [datasets]="getRadarChartData(player)"
+                        [labels]="radarChartLabels"
+                        [options]="radarChartOptions"
+                        [type]="'radar'">
+                    </canvas>
+                </div> -->
+            </div>
+            <div id="potion-container" style="margin-top: 4.5vh;">
+                <h2 style="margin-bottom: 1.2vh;">MIKSTURY</h2>
+                <div class="stat">
+                    <div class="range" style="--amount: {{ player.info.potionHp }}; --max: 2500; --color: #AA0303">
+                        <div class="range__label">HP</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.potionObrazenia }}; --max: 1250; --color: #850101">
+                        <div class="range__label">OBRAŻENIA</div>
+                    </div>
+                    <div class="range"
+                        style="--amount: {{ player.stats.potionOchrona }}; --max: 1250; --color: #C0C2C9">
+                        <div class="range__label">OCHRONA</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range" style="--amount: {{ player.stats.potionSila }}; --max: 1250; --color: #FF474C">
+                        <div class="range__label">SIŁA</div>
+                    </div>
+                    <div class="range"
+                        style="--amount: {{ player.stats.potionWytrzymalosc }}; --max: 1250; --color: #553927">
+                        <div class="range__label">WYTRZYMAŁOŚĆ</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.potionZrecznosc }}; --max: 1250; --color: #D5B56E">
+                        <div class="range__label">ZRĘCZNOŚĆ</div>
+                    </div>
+                    <div class="range"
+                        style="--amount: {{ player.stats.potionZdolnosci }}; --max: 1250; --color: #014421">
+                        <div class="range__label">ZDOLNOŚCI MYŚLIWSKIE</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range"
+                        style="--amount: {{ player.stats.potionInteligencja }}; --max: 1250; --color: #8A2Be2">
+                        <div class="range__label">INTELIGENCJA</div>
+                    </div>
+                    <div class="range" style="--amount: {{ player.stats.potionMana }}; --max: 2500; --color: #52AAFB">
+                        <div class="range__label">MANA</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="range" style="--amount: {{ player.stats.potionWalka }}; --max: 600; --color: #FFEA00">
+                        <div class="range__label">WALKA</div>
+                    </div>
+                </div>
+                <!-- <div style="display: block; float: right; height: 80%;">
+                    <canvas baseChart
+                        [datasets]="getRadarChartData(player)"
+                        [labels]="radarChartLabels"
+                        [options]="radarChartOptions"
+                        [type]="'radar'">
+                    </canvas>
+                </div> -->
+            </div>
+        </div>
+    </div>
 </ng-template>
 
 <ng-template #loadingTemplate>
