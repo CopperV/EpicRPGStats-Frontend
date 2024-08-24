@@ -6,7 +6,7 @@ import { DetailPlayer } from '../../_models/player-detail-interfaces';
 import { ListPlayer } from '../../_models/player-list-interfaces';
 import { SearchPlayer } from '../../_models/player-search-interfaces';
 
-const PLAYER_API = 'http://localhost:24565/players';
+const PLAYER_API = 'http://epic-rpg.pl:24565/players';
 
 @Injectable({
   providedIn: 'root'
